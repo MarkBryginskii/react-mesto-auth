@@ -26,11 +26,11 @@ const AddPlacePopup = (props) => {
   return (
     <PopupWithForm name="AddPhoto" title="Новое место" popupSize="large" isOpen={props.isOpen} onClose={props.onClose}>
       <div className="popup__input-container">
-        <input onChange={handleName} data-field-name="name" id="popup__card-name" type="text" className="popup__text-field" autoFocus placeholder="Название" minLength="1" maxLength="30" required />
+        <input value='' onChange={handleName} data-field-name="name" id="popup__card-name" type="text" className="popup__text-field" autoFocus placeholder="Название" minLength="1" maxLength="30" required />
         <span id="popup__card-name-error" className="popup__input-error" />
       </div>
       <div className="popup__input-container">
-        <input onChange={handleLink} data-field-name="link" id="popup__card-link" type="url" className="popup__text-field" placeholder="Ссылка на картинку" required />
+        <input value='' onChange={handleLink} data-field-name="link" id="popup__card-link" type="url" className="popup__text-field" placeholder="Ссылка на картинку" required />
         <span id="popup__card-link-error" className="popup__input-error" />
       </div>
       <button type="submit" onClick={handleSubmit} className="popup__save-button">Создать</button>

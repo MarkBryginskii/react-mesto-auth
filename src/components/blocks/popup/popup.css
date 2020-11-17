@@ -4,9 +4,11 @@
 @import url(./__form-container/_large/popup__form-container_large.css);
 @import url(./__form-container/_medium/popup__form-container_medium.css);
 @import url(./__form-container/_small/popup__form-container_small.css);
+@import url(./__form-container/_x-small/popup__form-container_x-small.css);
 
 @import url(./__close-button/popup__close-button.css);
 @import url(./__title/popup__title.css);
+@import url(./__title/_middle/popup__title_middle.css);
 @import url(./__input-container/popup__input-container.css);
 @import url(./__text-field/popup__text-field.css);
 @import url(./__text-field/_error/popup__text-field_error.css);
