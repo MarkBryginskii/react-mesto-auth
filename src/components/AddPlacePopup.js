@@ -14,8 +14,7 @@ const AddPlacePopup = (props) => {
     setLink(event.target.value);
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const formSubmit = () => {
 
     props.onAddCard({
       name,
@@ -24,7 +23,7 @@ const AddPlacePopup = (props) => {
   }
 
   return (
-    <PopupWithForm name="AddPhoto" title="Новое место" popupSize="large" isOpen={props.isOpen} onClose={props.onClose}>
+    <PopupWithForm name="AddPhoto" title="Новое место" popupSize="large" isOpen={props.isOpen} onClose={props.onClose} submit={formSubmit}>
       <div className="popup__input-container">
         <input defaultValue='' onChange={handleName} data-field-name="name" id="popup__card-name" type="text" className="popup__text-field" autoFocus placeholder="Название" minLength="1" maxLength="30" required />
         <span id="popup__card-name-error" className="popup__input-error" />
@@ -33,7 +32,6 @@ const AddPlacePopup = (props) => {
         <input defaultValue='' onChange={handleLink} data-field-name="link" id="popup__card-link" type="url" className="popup__text-field" placeholder="Ссылка на картинку" required />
         <span id="popup__card-link-error" className="popup__input-error" />
       </div>
-      <button type="submit" onClick={handleSubmit} className="popup__save-button">Создать</button>
     </PopupWithForm>
   );
 }

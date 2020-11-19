@@ -21,9 +21,9 @@ import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 
 const App = () => {
 
-  let history = useHistory();
+  const history = useHistory();
 
-  const [currentUser, setCurrentUser] = React.useState('');
+  const [currentUser, setCurrentUser] = React.useState({});
 
   const [isLoggedIn, setIsloggedIn] = React.useState(false);
   const [isUserEmail, setIsUserEmail] = React.useState('');
@@ -37,6 +37,7 @@ const App = () => {
   const [cards, setCards] = React.useState([]);
 
   React.useEffect( () => {
+    setSelectedCard(null);
     if(localStorage.getItem('jwt')) {
       appAuth.userInfo(localStorage.getItem('jwt'))
       .then((userData) => {
@@ -49,7 +50,8 @@ const App = () => {
     appApi.getUserInfo()
     .then((userData) => {
         setCurrentUser(userData);
-      });
+      })
+    .catch((err) => {console.log(err)})
   }, [history]);
 
   const handleCardLike = (card) => {
@@ -59,7 +61,8 @@ const App = () => {
     .then((newCard) => {
       const newCards = cards.map((c) => c._id === card._id ? newCard : c);
       setCards(newCards);
-    });
+    })
+    .catch((err) => {console.log(err)})
   }
 
   const handleCardDelete = (card) => {
@@ -67,17 +70,19 @@ const App = () => {
     .then(() => {
       const newCards = cards.filter((c) => c._id !== card._id);
       setCards(newCards);
-    });
+    })
+    .catch((err) => {console.log(err)})
   }
 
   React.useEffect( () => {
     appApi.getInitialCards()
     .then((cards) => {
       setCards(cards);
-      });
+      })
+    .catch((err) => {console.log(err)})
     }, []);
 
-  const [selectedCard, setSelectedCard] = React.useState();
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -108,14 +113,16 @@ const App = () => {
     appApi.setUserInfo({name, about})
     .then((userData) => {
       setCurrentUser(userData);})
-      .then(() => {closeAllPopups()});
+    .then(() => {closeAllPopups()})
+    .catch((err) => {console.log(err)})
   }
 
   const handleUpdateAvatar = ({avatar}) => {
     appApi.setUserAvatar({avatar})
     .then((userData) => {
       setCurrentUser(userData);})
-      .then(() => {closeAllPopups()});
+    .then(() => {closeAllPopups()})
+    .catch((err) => {console.log(err)})
   }
 
   const handleAddPlaceSubmit = ({name, link}) => {
@@ -123,7 +130,8 @@ const App = () => {
     .then((newCard) => {
       setCards([...cards, newCard]);
     })
-    .then(() => {closeAllPopups()});
+    .then(() => {closeAllPopups()})
+    .catch((err) => {console.log(err)})
   }
 
   const handleRegister = (obj) => {
@@ -139,6 +147,7 @@ const App = () => {
         setInfoTooltipOpen(true);
       }
     })
+    .catch((err) => {console.log(err)})
   }
 
   const handleLogin = (obj) => {
@@ -153,6 +162,7 @@ const App = () => {
         setInfoTooltipOpen(true);
       }
     })
+    .catch((err) => {console.log(err)})
   }
 
   function handleLogoff() {
