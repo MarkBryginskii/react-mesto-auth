@@ -23,7 +23,7 @@ const App = () => {
 
   let history = useHistory();
 
-  const [currentUser, setCurrentUser] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState('');
 
   const [isLoggedIn, setIsloggedIn] = React.useState(false);
   const [isUserEmail, setIsUserEmail] = React.useState('');
@@ -46,6 +46,10 @@ const App = () => {
       })
       .catch((err) => {console.log(err)});
     }
+    appApi.getUserInfo()
+    .then((userData) => {
+        setCurrentUser(userData);
+      });
   }, [history]);
 
   const handleCardLike = (card) => {
@@ -124,29 +128,31 @@ const App = () => {
 
   const handleRegister = (obj) => {
     appAuth.register(obj)
-    .then(() => {
-      setIsAuthSuccess(true);
-      setInfoTooltipOpen(true);
-      history.push('/sign-in');
+    .then((res) => {
+      if(!res.error) {
+        setIsAuthSuccess(true);
+        setInfoTooltipOpen(true);
+        history.push('/sign-in');
+      } else {
+        console.log(res.error);
+        setIsAuthSuccess(false);
+        setInfoTooltipOpen(true);
+      }
     })
-    .catch((err) => {
-      console.log(err);
-      setIsAuthSuccess(false);
-      setInfoTooltipOpen(true);
-    });
   }
 
   const handleLogin = (obj) => {
     appAuth.login(obj)
-    .then(() => {
-      setIsloggedIn(true);
-      history.push('/');
+    .then((res) => {
+      if(res.token) {
+        setIsloggedIn(true);
+        history.push('/');
+      } else {
+        console.log(res.message);
+        setIsAuthSuccess(false);
+        setInfoTooltipOpen(true);
+      }
     })
-    .catch((err) => {
-      console.log(err);
-      setIsAuthSuccess(false);
-      setInfoTooltipOpen(true);
-    });
   }
 
   function handleLogoff() {

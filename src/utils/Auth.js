@@ -35,6 +35,7 @@ class Auth {
     })
     .then((data) => {
       localStorage.setItem('jwt', data.token);
+      return data;
     })
   }
 
