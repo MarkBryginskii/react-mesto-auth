@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute.js';
-import logo from './images/header-logo.svg';
+import logo from '../images/header-logo.svg';
 import Header from './Header.js';
 import Register from './Register.js';
 import Login from './Login.js';
